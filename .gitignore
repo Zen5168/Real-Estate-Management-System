@@ -1,0 +1,44 @@
+# ==========================================
+# NetBeans & Maven Combined .gitignore
+# ==========================================
+
+# Maven Build Output
+target/
+*.jar
+*.war
+*.ear
+*.nar
+*.zip
+*.tar.gz
+*.rar
+
+# Maven Wrapper Executables
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+# NetBeans Files & Folders
+/nbproject/private/
+/nbproject/workspace.xml
+/nbproject/project.lock
+/build/
+/nbbuild/
+/dist/
+/nbdist/
+*.nbattrs
+
+# IDE & Editor Folders (IntelliJ, Eclipse, VS Code)
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+.classpath
+.project
+.settings/
+bin/
+.vscode/
+
+# Logs & OS Files
+*.log
+.DS_Store
+Thumbs.db
