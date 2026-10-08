@@ -147,11 +147,10 @@ public class LoginPage extends JFrame implements ActionListener {
         if (success) {
             JOptionPane.showMessageDialog(this, "Welcome, " + username + "!", "Login Successful", JOptionPane.INFORMATION_MESSAGE);
             clearFields();
- 
-            // PLACE HOLDER FOR FUTURE MAIN WINDOW, DO NOT REMOVE - ALFONSO
+
             // OPEN THE MAIN WINDOW
-            // new MainFrame().setVisible(true);
-            // dispose();
+             new MainFrame().setVisible(true);
+             dispose();
  
         } else {
             JOptionPane.showMessageDialog(this, "Invalid username or password", "Login Failed", JOptionPane.ERROR_MESSAGE);
