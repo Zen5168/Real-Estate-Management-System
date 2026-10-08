@@ -4,6 +4,7 @@
 
 # Maven Build Output
 target/
+**/target/
 *.jar
 *.war
 *.ear
