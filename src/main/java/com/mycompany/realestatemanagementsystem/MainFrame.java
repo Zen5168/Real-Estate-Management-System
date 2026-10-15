@@ -1,6 +1,6 @@
 package com.mycompany.realestatemanagementsystem;
 
-import java.awt.Font;
+import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
@@ -31,11 +31,10 @@ public class MainFrame extends JFrame implements ActionListener {
         btnLogout.setBounds(770, 12, 100, 30);
         add(btnLogout);
 
-        // CREATE THE PANEL FOR EACH TAB
-        pnlProperties = new PropertyPanel();
+        // CREATE THE PANEL FOR EACH TAB (EACH ONE USES NULL LAYOUT TOO)
+        pnlProperties = new PropertyPanel(); // PROPERTIES TAB HAS ITS OWN CLASS
 
-        pnlClients = new JPanel();
-        pnlClients.setLayout(null);
+        pnlClients = new ClientPanel(); // CLIENTS TAB HAS ITS OWN CLASS
 
         pnlTransactions = new JPanel();
         pnlTransactions.setLayout(null);
@@ -43,10 +42,7 @@ public class MainFrame extends JFrame implements ActionListener {
         pnlReports = new JPanel();
         pnlReports.setLayout(null);
 
-        JLabel lblClientsHolder = new JLabel("Clients tab");
-        lblClientsHolder.setBounds(20, 20, 300, 25);
-        pnlClients.add(lblClientsHolder);
-
+        // PLACE HOLDER LABELS, REPLACE THESE AS EACH TAB IS BUILT
         JLabel lblTransactionsHolder = new JLabel("Transactions tab");
         lblTransactionsHolder.setBounds(20, 20, 300, 25);
         pnlTransactions.add(lblTransactionsHolder);
