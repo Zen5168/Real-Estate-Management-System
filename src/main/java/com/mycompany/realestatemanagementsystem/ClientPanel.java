@@ -18,13 +18,13 @@ public class ClientPanel extends JPanel implements ActionListener {
 
     private ClientDAO clientDAO;
     private HashMap<Integer, Client> clientMap; // KEY = clientId, FOR FAST ACCESS
-    private int selectdID; // 0 MEANS NOTHING IS SELECTED
+    private int selectedId; // 0 MEANS NOTHING IS SELECTED
 
     ClientPanel() {
 
         clientDAO = new ClientDAO();
         clientMap = new HashMap<>();
-        selectdID = 0;
+        selectedId = 0;
 
         setLayout(null);
 
@@ -165,7 +165,7 @@ public class ClientPanel extends JPanel implements ActionListener {
 
     // UPDATE LOGIC
     private void handleUpdate() {
-        if (selectdID == 0) { // NOTHING SELECTED
+        if (selectedId == 0) { // NOTHING SELECTED
             JOptionPane.showMessageDialog(this, "Select a client from the table first", "Input Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
@@ -184,7 +184,7 @@ public class ClientPanel extends JPanel implements ActionListener {
         }
 
         try {
-            boolean success = clientDAO.updateClient(new Client(selectdID, name, contact));
+            boolean success = clientDAO.updateClient(new Client(selectedId, name, contact));
 
             if (success) {
                 JOptionPane.showMessageDialog(this, "Client updated!", "Update Successful", JOptionPane.INFORMATION_MESSAGE);
@@ -199,7 +199,7 @@ public class ClientPanel extends JPanel implements ActionListener {
 
     // DELETE LOGIC
     private void handleDelete() {
-        if (selectdID == 0) { // NOTHING SELECTED
+        if (selectedId == 0) { // NOTHING SELECTED
             JOptionPane.showMessageDialog(this, "Select a client from the table first", "Input Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
@@ -210,7 +210,7 @@ public class ClientPanel extends JPanel implements ActionListener {
         }
 
         try {
-            boolean success = clientDAO.deleteClient(selectdID);
+            boolean success = clientDAO.deleteClient(selectedId);
 
             if (success) {
                 JOptionPane.showMessageDialog(this, "Client deleted!", "Delete Successful", JOptionPane.INFORMATION_MESSAGE);
@@ -278,6 +278,11 @@ public class ClientPanel extends JPanel implements ActionListener {
         }
     }
 
+    // RELOADS THE TABLE FROM THE DATABASE (CALLED WHEN THIS TAB IS OPENED)
+    public void refresh() {
+        loadClients();
+    }
+
     // SHOWS A LIST OF CLIENTS IN THE TABLE (SORTED BY ID, BECAUSE A HASH MAP HAS NO ORDER)
     private void showTable(ArrayList<Client> list) {
         Collections.sort(list, new Comparator<Client>() {
@@ -291,10 +296,10 @@ public class ClientPanel extends JPanel implements ActionListener {
 
         for (Client client : list) {
             tableModel.addRow(new Object[]{
-                    client.getClientId(),
-                    client.getName(),
-                    client.getContactInfo(),
-                    client.getPropertiesOwned().size()
+                client.getClientId(),
+                client.getName(),
+                client.getContactInfo(),
+                client.getPropertiesOwned().size()
             });
         }
     }
@@ -310,7 +315,7 @@ public class ClientPanel extends JPanel implements ActionListener {
         Client client = clientMap.get(id); // HASH MAP LOOKUP
 
         if (client != null) {
-            selectdID = id;
+            selectedId = id;
             txtName.setText(client.getName());
             txtContact.setText(client.getContactInfo());
         }
@@ -320,7 +325,7 @@ public class ClientPanel extends JPanel implements ActionListener {
     private void clearForm() {
         txtName.setText("");
         txtContact.setText("");
-        selectdID = 0;
+        selectedId = 0;
         tblClients.clearSelection();
     }
 }

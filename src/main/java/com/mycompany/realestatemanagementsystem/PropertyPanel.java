@@ -141,7 +141,7 @@ public class PropertyPanel extends JPanel implements ActionListener {
         }
     }
 
-    // ADD PROPERTY LOGIC
+    // ADD LOGIC
     private void handleAdd() {
         String location = txtLocation.getText().trim();
         String priceText = txtPrice.getText().trim();
@@ -152,13 +152,13 @@ public class PropertyPanel extends JPanel implements ActionListener {
             return;
         }
 
-        if (location.length() > 150) { // MATCHES VARCHAR(150) IN THE PROPERTIES TABLE
+        if (location.length() > 150) {
             JOptionPane.showMessageDialog(this, "Location must be 150 characters or less", "Input Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
         double price = parsePrice(priceText);
-        if (price < 0) { // parsePrice ALREADY SHOWED THE ERROR
+        if (price < 0) { 
             return;
         }
 
@@ -178,7 +178,7 @@ public class PropertyPanel extends JPanel implements ActionListener {
         }
     }
 
-    // UPDATE PROPERTY LOGIC
+    // UPDATE LOGIC
     private void handleUpdate() {
         if (selectedId == 0) { // NOTHING SELECTED
             JOptionPane.showMessageDialog(this, "Select a property from the table first", "Input Error", JOptionPane.ERROR_MESSAGE);
@@ -218,7 +218,7 @@ public class PropertyPanel extends JPanel implements ActionListener {
         }
     }
 
-    // DELETE PROPERTY LOGIC
+    // DELETE LOGIC
     private void handleDelete() {
         if (selectedId == 0) { // NOTHING SELECTED
             JOptionPane.showMessageDialog(this, "Select a property from the table first", "Input Error", JOptionPane.ERROR_MESSAGE);
@@ -304,6 +304,11 @@ public class PropertyPanel extends JPanel implements ActionListener {
             JOptionPane.showMessageDialog(this, "Could not load properties: " + ex.getMessage(),
                     "Database Error", JOptionPane.ERROR_MESSAGE);
         }
+    }
+
+    // RELOADS THE TABLE FROM THE DATABASE (CALLED WHEN THIS TAB IS OPENED)
+    public void refresh() {
+        loadProperties();
     }
 
     // SHOWS A LIST OF PROPERTIES IN THE TABLE
