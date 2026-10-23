@@ -1,15 +1,19 @@
 package com.mycompany.realestatemanagementsystem;
 
-import java.awt.*;
+import java.awt.Font;
 import java.awt.event.*;
 import javax.swing.*;
+import javax.swing.event.*;
 
 public class MainFrame extends JFrame implements ActionListener {
 
     private JLabel lblTitle;
     private JButton btnLogout;
     private JTabbedPane tabbedPane;
-    private JPanel pnlProperties, pnlClients, pnlTransactions, pnlReports;
+    private PropertyPanel pnlProperties;
+    private ClientPanel pnlClients;
+    private TransactionPanel pnlTransactions;
+    private JPanel pnlReports;
 
     MainFrame() {
 
@@ -36,17 +40,12 @@ public class MainFrame extends JFrame implements ActionListener {
 
         pnlClients = new ClientPanel(); // CLIENTS TAB HAS ITS OWN CLASS
 
-        pnlTransactions = new JPanel();
-        pnlTransactions.setLayout(null);
+        pnlTransactions = new TransactionPanel(); // TRANSACTIONS TAB HAS ITS OWN CLASS
 
         pnlReports = new JPanel();
         pnlReports.setLayout(null);
 
-        // PLACE HOLDER LABELS, REPLACE THESE AS EACH TAB IS BUILT
-        JLabel lblTransactionsHolder = new JLabel("Transactions tab");
-        lblTransactionsHolder.setBounds(20, 20, 300, 25);
-        pnlTransactions.add(lblTransactionsHolder);
-
+        // PLACE HOLDER LABEL, REPLACE THIS WHEN THE REPORTS TAB IS BUILT
         JLabel lblReportsHolder = new JLabel("Reports tab");
         lblReportsHolder.setBounds(20, 20, 300, 25);
         pnlReports.add(lblReportsHolder);
@@ -62,6 +61,22 @@ public class MainFrame extends JFrame implements ActionListener {
 
         // ADD TO ACTION LISTENER
         btnLogout.addActionListener(this);
+
+        // RELOAD A TAB'S DATA EVERY TIME IT IS OPENED, SO IT NEVER SHOWS OLD DATA
+        tabbedPane.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                int selected = tabbedPane.getSelectedIndex();
+
+                if (selected == 0) {
+                    pnlProperties.refresh();
+                } else if (selected == 1) {
+                    pnlClients.refresh();
+                } else if (selected == 2) {
+                    pnlTransactions.refresh();
+                }
+            }
+        });
 
     }
 
