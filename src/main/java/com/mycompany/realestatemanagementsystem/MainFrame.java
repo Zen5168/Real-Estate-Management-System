@@ -13,7 +13,7 @@ public class MainFrame extends JFrame implements ActionListener {
     private PropertyPanel pnlProperties;
     private ClientPanel pnlClients;
     private TransactionPanel pnlTransactions;
-    private JPanel pnlReports;
+    private ReportPanel pnlReports;
 
     MainFrame() {
 
@@ -42,13 +42,7 @@ public class MainFrame extends JFrame implements ActionListener {
 
         pnlTransactions = new TransactionPanel(); // TRANSACTIONS TAB HAS ITS OWN CLASS
 
-        pnlReports = new JPanel();
-        pnlReports.setLayout(null);
-
-        // PLACE HOLDER LABEL, REPLACE THIS WHEN THE REPORTS TAB IS BUILT
-        JLabel lblReportsHolder = new JLabel("Reports tab");
-        lblReportsHolder.setBounds(20, 20, 300, 25);
-        pnlReports.add(lblReportsHolder);
+        pnlReports = new ReportPanel(); // REPORTS TAB HAS ITS OWN CLASS
 
         // CREATE THE TABS
         tabbedPane = new JTabbedPane();
@@ -74,6 +68,8 @@ public class MainFrame extends JFrame implements ActionListener {
                     pnlClients.refresh();
                 } else if (selected == 2) {
                     pnlTransactions.refresh();
+                } else if (selected == 3) {
+                    pnlReports.refresh();
                 }
             }
         });
